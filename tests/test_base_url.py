@@ -1,14 +1,14 @@
-def test_get_method(get):
+def test_req_base_url(get):
     """
-    test get request
-    --base-url=https://httpbin.org
+    test base url
+    pytest --base-url=https://httpbin.org
     """
     payload = {'key1': 'value1', 'key2': 'value2'}
     s = get("/get", params=payload)
     assert s.status_code == 200
 
 
-def test_session(session):
+def test_session_base_url(session):
     """
     test session
     --base-url=https://httpbin.org
