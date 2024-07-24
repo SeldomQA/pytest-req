@@ -34,6 +34,7 @@ pytest-req 完全兼容 [Requests](https://docs.python-requests.org/en/master/) 
 __⭐ 支持简单的请求__
 
 ```python
+# test_req.py
 
 def test_post_method(post):
     """
@@ -55,6 +56,7 @@ def test_get_method(get):
 __⭐ 支持Session__
 
 ```python
+# test_session.py
 
 def test_session(session):
     s = session
@@ -65,6 +67,7 @@ def test_session(session):
 __⭐ 支持base-url__
 
 ```python
+# test_base_url.py
 
 def test_get_method(get):
     """
@@ -92,6 +95,7 @@ __🗒 运行日志__
 
 ```shell
 > pytest -qs --base-url=https://httpbin.org test_base_url.py
+
 2024-07-24 12:18:39 | INFO     | plugin.py | -------------- Request -----------------[🚀]
 2024-07-24 12:18:39 | INFO     | plugin.py | [method]: GET      [url]: /get 
 2024-07-24 12:18:39 | DEBUG    | plugin.py | [params]:
