@@ -25,17 +25,20 @@ def request(func):
     def wrapper(*args, **kwargs):
         func_name = func.__name__
         log.info('-------------- Request -----------------[🚀]')
-        try:
+        if len(list(args)) == 1:
+            url = list(args)[0]
+        elif len(list(args)) == 2:
             url = list(args)[1]
-        except IndexError:
-            url = kwargs.get("url", "")
+        else:
+            url = ""
 
         img_file = False
         file_type = url.split(".")[-1]
         if file_type in IMG:
             img_file = True
 
-        log.info(f"[method]: {func_name.upper()}      [url]: {url} ")
+        req_method = func_name.replace("_", "")
+        log.info(f"[method]: {req_method.upper()}      [url]: {url} ")
         auth = kwargs.get("auth", None)
         headers = kwargs.get("headers", None)
         cookies = kwargs.get("cookies", None)
