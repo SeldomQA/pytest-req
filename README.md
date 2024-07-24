@@ -1,5 +1,15 @@
 # pytest-req
 
+```shell
+                 __            __                             
+    ____  __  __/ /____  _____/ /_            ________  ____ _
+   / __ \/ / / / __/ _ \/ ___/ __/  ______   / ___/ _ \/ __ `/
+  / /_/ / /_/ / /_/  __(__  ) /_   /_____/  / /  /  __/ /_/ / 
+ / .___/\__, /\__/\___/____/\__/           /_/   \___/\__, /  
+/_/    /____/                                           /_/   
+
+```
+
 > pytest requests plugin
 
 pytest 使用 requests 库的插件。
@@ -59,6 +69,9 @@ __⭐ 支持Session__
 # test_session.py
 
 def test_session(session):
+    """
+    test session, keep requests cookie
+    """
     s = session
     s.get('https://httpbin.org/cookies/set/sessioncookie/123456789')
     s.get('https://httpbin.org/cookies')
@@ -69,10 +82,10 @@ __⭐ 支持base-url__
 ```python
 # test_base_url.py
 
-def test_get_method(get):
+def test_req_base_url(get):
     """
-    test get request
-    --base-url=https://httpbin.org
+    test base url
+    pytest --base-url=https://httpbin.org
     """
     payload = {'key1': 'value1', 'key2': 'value2'}
     s = get("/get", params=payload)
