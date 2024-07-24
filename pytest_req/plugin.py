@@ -93,6 +93,10 @@ def request(func):
 
 class Session(requests.Session):
 
+    def __init__(self, base_url):
+        super().__init__()
+        self.base_url = base_url
+
     @request
     def get(self, url, **kwargs):
         r"""Sends a GET request. Returns :class:`Response` object.
@@ -100,7 +104,8 @@ class Session(requests.Session):
         :param \*\*kwargs: Optional arguments that ``request`` takes.
         :rtype: requests.Response
         """
-
+        if (self.base_url is not None) and (url.startswith("http") is False):
+            url = self.base_url + url
         kwargs.setdefault('allow_redirects', True)
         return self.request('GET', url, **kwargs)
 
@@ -115,6 +120,8 @@ class Session(requests.Session):
         :param \*\*kwargs: Optional arguments that ``request`` takes.
         :rtype: requests.Response
         """
+        if (self.base_url is not None) and (url.startswith("http") is False):
+            url = self.base_url + url
         return self.request('POST', url, data=data, json=json, **kwargs)
 
     @request
@@ -127,6 +134,8 @@ class Session(requests.Session):
         :param \*\*kwargs: Optional arguments that ``request`` takes.
         :rtype: requests.Response
         """
+        if (self.base_url is not None) and (url.startswith("http") is False):
+            url = self.base_url + url
         return self.request('PUT', url, data=data, **kwargs)
 
     @request
@@ -137,57 +146,69 @@ class Session(requests.Session):
         :param \*\*kwargs: Optional arguments that ``request`` takes.
         :rtype: requests.Response
         """
+        if (self.base_url is not None) and (url.startswith("http") is False):
+            url = self.base_url + url
         return self.request('DELETE', url, **kwargs)
 
 
 @pytest.fixture
-def get():
+def get(base_url):
     @request
     def _get(url, params=None, **kwargs):
+        if (base_url is not None) and (url.startswith("http") is False):
+            url = base_url + url
         return requests.get(url, params=params, **kwargs)
 
     return _get
 
 
 @pytest.fixture
-def post():
+def post(base_url):
     @request
     def _post(url, data=None, json=None, **kwargs):
+        if (base_url is not None) and (url.startswith("http") is False):
+            url = base_url + url
         return requests.post(url, data=data, json=json, **kwargs)
 
     return _post
 
 
 @pytest.fixture
-def put():
+def put(base_url):
     @request
     def _put(url, data=None, **kwargs):
+        if (base_url is not None) and (url.startswith("http") is False):
+            url = base_url + url
         return requests.put(url, data=data, **kwargs)
 
     return _put
 
 
 @pytest.fixture
-def delete():
+def delete(base_url):
     @request
     def _delete(url, **kwargs):
+        if (base_url is not None) and (url.startswith("http") is False):
+            url = base_url + url
         return requests.delete(url, **kwargs)
 
     return _delete
 
 
 @pytest.fixture(scope="function")
-def patch():
+def patch(base_url):
     @request
     def _patch(url, data=None, **kwargs):
+        if (base_url is not None) and (url.startswith("http") is False):
+            url = base_url + url
         return requests.patch(url, data=data, **kwargs)
 
     return _patch
 
 
 @pytest.fixture
-def session():
-    session = Session()
+def session(base_url):
+    session = Session(base_url=base_url)
 
     yield session
 
