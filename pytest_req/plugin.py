@@ -91,6 +91,55 @@ def request(func):
     return wrapper
 
 
+class Session(requests.Session):
+
+    @request
+    def get(self, url, **kwargs):
+        r"""Sends a GET request. Returns :class:`Response` object.
+        :param url: URL for the new :class:`Request` object.
+        :param \*\*kwargs: Optional arguments that ``request`` takes.
+        :rtype: requests.Response
+        """
+
+        kwargs.setdefault('allow_redirects', True)
+        return self.request('GET', url, **kwargs)
+
+    @request
+    def post(self, url, data=None, json=None, **kwargs):
+        r"""Sends a POST request. Returns :class:`Response` object.
+
+        :param url: URL for the new :class:`Request` object.
+        :param data: (optional) Dictionary, list of tuples, bytes, or file-like
+            object to send in the body of the :class:`Request`.
+        :param json: (optional) json to send in the body of the :class:`Request`.
+        :param \*\*kwargs: Optional arguments that ``request`` takes.
+        :rtype: requests.Response
+        """
+        return self.request('POST', url, data=data, json=json, **kwargs)
+
+    @request
+    def put(self, url, data=None, **kwargs):
+        r"""Sends a PUT request. Returns :class:`Response` object.
+
+        :param url: URL for the new :class:`Request` object.
+        :param data: (optional) Dictionary, list of tuples, bytes, or file-like
+            object to send in the body of the :class:`Request`.
+        :param \*\*kwargs: Optional arguments that ``request`` takes.
+        :rtype: requests.Response
+        """
+        return self.request('PUT', url, data=data, **kwargs)
+
+    @request
+    def delete(self, url, **kwargs):
+        r"""Sends a DELETE request. Returns :class:`Response` object.
+
+        :param url: URL for the new :class:`Request` object.
+        :param \*\*kwargs: Optional arguments that ``request`` takes.
+        :rtype: requests.Response
+        """
+        return self.request('DELETE', url, **kwargs)
+
+
 @pytest.fixture
 def get():
     @request
@@ -134,3 +183,12 @@ def patch():
         return requests.patch(url, data=data, **kwargs)
 
     return _patch
+
+
+@pytest.fixture
+def session():
+    session = Session()
+
+    yield session
+
+    session.close()
