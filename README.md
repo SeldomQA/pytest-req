@@ -16,8 +16,8 @@ pytest 使用 requests 库的插件。
 
 ## 特点
 
-* 完全兼容Requests的使用。
-* 提供详细的请求日志。
+* 完全兼容Requests库的使用。
+* 提供详细的`请求/响应`日志，并支持可配置。
 * 轻量级，非侵入。
 
 ## 安装
@@ -101,6 +101,9 @@ __✅ 运行测试__
 > pytest -s test_req.py # 运行指定文件
 > pytest -s --base-url=https://httpbin.org  # 指定base-url
 ```
+
+- `-s` 查看详细日志。
+- `--base-url` 设置接口基础URL，用例当中进需要配置路径。
 
 更多的运行方式请参考 pytest 文档。
 
