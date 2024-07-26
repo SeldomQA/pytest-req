@@ -198,7 +198,7 @@ def delete(base_url):
     return _delete
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture
 def patch(base_url):
     @request
     def _patch(url, data=None, **kwargs):

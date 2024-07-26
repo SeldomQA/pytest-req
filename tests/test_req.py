@@ -29,3 +29,12 @@ def test_delete_method(delete):
     """
     s = delete('https://httpbin.org/delete')
     assert s.status_code == 200
+
+
+def test_patch_method(patch):
+    """
+    test patch request
+    """
+    data = {'key': 'value'}
+    s = patch("https://httpbin.org/patch", data=data)
+    assert s.status_code == 200
