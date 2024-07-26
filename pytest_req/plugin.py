@@ -210,6 +210,28 @@ def patch(base_url):
 
 
 @pytest.fixture
+def head(base_url):
+    @request
+    def _head(url, **kwargs):
+        if (base_url is not None) and (url.startswith("http") is False):
+            url = base_url + url
+        return requests.head(url, **kwargs)
+
+    return _head
+
+
+@pytest.fixture
+def options(base_url):
+    @request
+    def _options(url, **kwargs):
+        if (base_url is not None) and (url.startswith("http") is False):
+            url = base_url + url
+        return requests.options(url, **kwargs)
+
+    return _options
+
+
+@pytest.fixture
 def session(base_url):
     session = Session(base_url=base_url)
 

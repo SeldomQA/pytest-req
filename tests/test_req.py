@@ -38,3 +38,19 @@ def test_patch_method(patch):
     data = {'key': 'value'}
     s = patch("https://httpbin.org/patch", data=data)
     assert s.status_code == 200
+
+
+def test_head_method(head):
+    """
+    test head request
+    """
+    s = head("https://httpbin.org/get")
+    assert s.status_code == 200
+
+
+def test_options_method(options):
+    """
+    test options request
+    """
+    s = options("https://httpbin.org/get")
+    assert s.status_code == 200
