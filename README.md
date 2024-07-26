@@ -37,7 +37,11 @@ pytest-req 完全兼容 [Requests](https://docs.python-requests.org/en/master/) 
 | put()               | requests.put()     |
 | delete()            | requests.delete()  |
 | patch()             | requests.patch()   |
-| session()           | requests.session() |
+| options()           | requests.options() |
+| head()              | requests.head()    |
+| session()  ⚠        | requests.session() |
+
+> session IDE无法自动补全。可以正常使用session下面的`get()/post()/put()...`
 
 👉︎ [查看测试](./tests)
 
