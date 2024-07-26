@@ -1,3 +1,8 @@
+## 0.2.0
+
+* 增加`head`、`options` 等fixture。
+* session增加`patch`、`head`、`options`方法。
+
 ## 0.1.0
 
 * 完成`pytest-req`插件。
