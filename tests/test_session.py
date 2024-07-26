@@ -21,7 +21,6 @@ def test_session_other(session):
     Sessions can also be used to provide default data to the request methods
     """
     s = session
-    s.post()
     s.auth = ('user', 'pass')
     s.headers.update({'x-test': 'true'})
 
