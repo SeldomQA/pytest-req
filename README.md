@@ -43,19 +43,30 @@ pytest-req 完全兼容 [Requests](https://docs.python-requests.org/en/master/) 
 
 > session IDE无法自动补全。可以正常使用session下面的`get()/post()/put()...`
 
+pytest-req 提供 `expect` 针对接口返回数据进行断言。
+
+| pytest-req(assert)                                                      | 说明                                         |
+|-------------------------------------------------------------------------|--------------------------------------------|
+| expect(response).to_be_ok()                                             | 状态码 200                                    |
+| expect(response).to_have_status_code(404)                               | 状态码等于 404                                  |
+| expect(response).to_have_json_matching(json_data, exclude=[])           | 断言JSON数据，exclude=[排查的字段列表]                 |
+| expect(response).to_have_path_value(path="headers.Host", value="value") | 断言提取的数据，是否等于value ,参考：https://jmespath.org |
+
 👉︎ [查看测试](./tests)
 
 __⭐ 支持简单的请求__
 
 ```python
 # test_req.py
+from pytest_req.assertions import expect
+
 
 def test_post_method(post):
     """
     test post request
     """
     s = post('https://httpbin.org/post', data={'key': 'value'})
-    assert s.status_code == 200
+    expect(s).to_be_ok()
 
 
 def test_get_method(get):
@@ -64,7 +75,7 @@ def test_get_method(get):
     """
     payload = {'key1': 'value1', 'key2': 'value2'}
     s = get("https://httpbin.org/get", params=payload)
-    assert s.status_code == 200
+    expect(s).to_be_ok()
 ```
 
 __⭐ 支持Session__
