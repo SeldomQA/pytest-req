@@ -1,3 +1,11 @@
+## 0.3.0
+
+* 增加`expect`断言类
+    * `expect(response).to_be_ok()`
+    * `expect(response).to_have_status_code()`
+    * `expect(response).to_have_json_matching()`
+    * `expect(response).to_have_path_value()`
+
 ## 0.2.0
 
 * 增加`head`、`options` 等fixture。
