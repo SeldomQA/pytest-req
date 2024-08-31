@@ -1,25 +1,25 @@
 from pytest_req.assertions import expect
 
 
-def test_get_200(get):
+def test_status_code_ok(get):
     """
-    test get request 200
+    assert http status code == 200
     """
     s = get("https://httpbin.org/get")
     expect(s).to_be_ok()
 
 
-def test_get_404(get):
+def test_assert_status_code_404(get):
     """
-    test get request 404
+    assert HTTP status code == 404
     """
     s = get("https://httpbin.org/aaa")
     expect(s).to_have_status_code(404)
 
 
-def test_get_assert_json(get):
+def test_assert_json_data(get):
     """
-    test get request json
+    assert json data
     """
     s = get("https://httpbin.org/get")
     json_str = {
@@ -32,3 +32,11 @@ def test_get_assert_json(get):
         "url": "https://httpbin.org/get"
     }
     expect(s).to_have_json_matching(json_str, exclude=["X-Amzn-Trace-Id", "origin"])
+
+
+def test_assert_path_value(get):
+    """
+    assert path value
+    """
+    s = get("https://httpbin.org/get")
+    expect(s).to_have_path_value("headers.Host", "httpbin.org")

@@ -22,8 +22,9 @@ classifiers = [
 python = ">=3.8"
 loguru = "^0.7.2"
 requests = "^2.32.3"
-pytest = "^8.3.1"
+pytest = "^8.3.2"
 pytest-base-url = "^2.1.0"
+jmespath = "^1.0.1"
 
 [tool.poetry.plugins."pytest11"]
 req = "pytest_req.plugin"
