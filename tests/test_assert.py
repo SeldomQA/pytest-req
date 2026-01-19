@@ -48,3 +48,22 @@ def test_assert_path_contains(get):
     """
     s = get("https://httpbin.org/get")
     expect(s).to_have_path_contains("headers.Host", "httpbin.")
+
+
+def test_assert_path_all_equal_success():
+    """
+    assert all values in list equal - success case
+    """
+    from pytest_req.assertions import Expect
+    
+    # Test with numeric values
+    data1 = {
+        "items": [1, 1, 1, 1, 1],
+    }
+    expect(data1).to_have_path_all_equal("items", 1)
+    
+    # Test with string values
+    data2 = {
+        "statuses": ["active", "active", "active"]
+    }
+    expect(data2).to_have_path_all_equal("statuses", "active")
