@@ -45,13 +45,15 @@ pytest-req 完全兼容 [Requests](https://docs.python-requests.org/en/master/) 
 
 pytest-req 提供 `expect` 针对接口返回数据进行断言。
 
-| pytest-req(assert)                                           | 说明                                           |
-|--------------------------------------------------------------|------------------------------------------------|
-| expect(s).to_be_ok()                                         | 状态码 200                                      |
-| expect(s).to_have_status_code(404)                           | 状态码等于 404                                   |
-| expect(s).to_have_json_matching(json_data, exclude=[])       | 断言JSON数据，exclude=[排查的字段列表]              |
-| expect(s).to_have_path_value("headers.Host", "httpbin.org")  | 提取的数据，断言是否等于, 参考：https://jmespath.org |
-| expect(s).to_have_path_contains("headers.Host", "httpbin")   | 提取的数据，断言是否包含, 参考：https://jmespath.org |
+| pytest-req(assert) | 说明 |
+|---|---|
+| `expect(s).to_be_ok()` | 状态码 200 |
+| `expect(s).to_have_status_code()` | 状态码等于指定值 |
+| `expect(s).to_have_json_matching()` | 断言JSON数据，支持exclude参数排查指定字段 |
+| `expect(s).to_have_path_value()` | 提取JMESPath路径的数据，断言是否等于指定值 |
+| `expect(s).to_have_path_contains()` | 提取JMESPath路径的数据，断言是否包含指定值 |
+| `expect(s).to_have_path_all_equal()` | 提取JMESPath路径的数据，断言所有元素是否等于指定值 |
+
 
 👉︎ [查看测试](./tests)
 
