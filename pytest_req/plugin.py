@@ -31,8 +31,10 @@ def request(func):
         url = ""
         if len(list(args)) == 1 and isinstance(args[0], str):
             url = list(args)[0]
-        elif len(list(args)) >= 2 and hasattr(args[0], 'base_url'):
+        elif len(list(args)) >= 2 and hasattr(args[0], 'base_url') and 'http' not in args[1]:
             url = args[0].base_url + list(args)[1]
+        elif len(list(args)) >= 2 and hasattr(args[0], 'base_url') and 'http' in args[1]:
+            url = list(args)[1]
 
         parsed_url = urlparse(url)
         domain = parsed_url.netloc
