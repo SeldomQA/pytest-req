@@ -1,3 +1,7 @@
+## 0.6.0
+
+* 增加断言方法 `to_have_path_all_contains()`。
+
 ## 0.5.3
 
 * 功能：兼容非`base_url`域名的请求。
