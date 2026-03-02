@@ -125,6 +125,32 @@ class Expect:
             assert value == expected_value, (
                 f"Index {index}: expected {expected_value}, but got {value}"
             )
-            
+
+    def to_have_path_all_contains(self, path, expected_value) -> None:
+        """
+        Assert all values in list at path contain expected_value
+        """
+        log.info(f"👀 assert path all contains -> {path} contains {expected_value}.")
+        actual_json = self.response
+        if isinstance(self.response, requests.Response):
+            try:
+                actual_json = self.response.json()
+            except json.JSONDecodeError:
+                raise AssertionError("Response does not contain valid JSON")
+
+        search_value = jmespath(actual_json, path)
+
+        if not isinstance(search_value, list):
+            raise AssertionError(f"The value at path '{path}' is not a list, it is {type(search_value)}")
+
+        if not search_value:
+            log.info("ℹ️ list is empty, skip all-contains assertion")
+            return
+
+        for index, item in enumerate(search_value):
+            assert expected_value in str(item), (
+                f"Index {index}: expected to contain '{expected_value}', but got '{item}'"
+            )
+
 def expect(response):
     return Expect(response)
