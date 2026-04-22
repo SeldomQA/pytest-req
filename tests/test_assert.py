@@ -67,3 +67,19 @@ def test_assert_path_all_equal_success():
         "statuses": ["active", "active", "active"]
     }
     expect(data2).to_have_path_all_equal("statuses", "active")
+
+
+def test_assert_schema():
+    """
+    assert JSON schema validation
+    """
+    data = {"name": "John", "age": 30}
+    schema = {
+        "type": "object",
+        "properties": {
+            "name": {"type": "string"},
+            "age": {"type": "number"}
+        },
+        "required": ["name", "age"]
+    }
+    expect(data).assert_schema(schema)

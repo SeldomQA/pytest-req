@@ -31,6 +31,7 @@ dependencies = [
     "pytest>=8.4.2",
     "pytest-base-url>=2.1.0",
     "jmespath>=1.0.1",
+    "jsonschema>=4.26.0",
 ]
 
 [project.urls]

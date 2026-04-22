@@ -1,6 +1,9 @@
 import json
 import requests
 
+from jsonschema import validate
+from jsonschema.exceptions import ValidationError
+
 from pytest_req.log import log
 from pytest_req.utils.diff import  AssertInfo, diff_json
 from pytest_req.utils.jmespath import jmespath
@@ -53,7 +56,6 @@ class Expect:
                 log.warning(warn)
         if AssertInfo.error:
             raise AssertionError(f"JSON mismatch:\n {AssertInfo.error}")
-
 
     def to_have_path_value(self, path, expected_value) -> None:
         """
@@ -151,6 +153,28 @@ class Expect:
             assert expected_value in str(item), (
                 f"Index {index}: expected to contain '{expected_value}', but got '{item}'"
             )
+
+    def assert_schema(self, schema, path=None, response=None) -> None:
+        """
+        Assert JSON Schema
+        doc: https://json-schema.org/
+        """
+        log.info(f"👀 assert schema.")
+        actual_json = self.response
+        if isinstance(self.response, requests.Response):
+            try:
+                actual_json = self.response.json()
+            except json.JSONDecodeError:
+                raise AssertionError("Response does not contain valid JSON")
+
+        if path is not None:
+            actual_json = jmespath(actual_json, path)
+
+        try:
+            validate(instance=actual_json, schema=schema)
+        except ValidationError as msg:
+           raise AssertionError(msg)
+
 
 def expect(response):
     return Expect(response)
