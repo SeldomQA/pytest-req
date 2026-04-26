@@ -53,7 +53,7 @@ pytest-req 提供 `expect` 针对接口返回数据进行断言。
 | `expect(s).to_have_path_value()` | 提取JMESPath路径的数据，断言是否等于指定值 |
 | `expect(s).to_have_path_contains()` | 提取JMESPath路径的数据，断言是否包含指定值 |
 | `expect(s).to_have_path_all_equal()` | 提取JMESPath路径的数据，断言所有元素是否等于指定值 |
-
+| `expect(s).to_match_schema()` | 检查数据字段类型：https://json-schema.org/ |
 
 👉︎ [查看测试](./tests)
 
