@@ -154,7 +154,7 @@ class Expect:
                 f"Index {index}: expected to contain '{expected_value}', but got '{item}'"
             )
 
-    def assert_schema(self, schema, path=None, response=None) -> None:
+    def to_match_schema(self, schema, path=None, response=None) -> None:
         """
         Assert JSON Schema
         doc: https://json-schema.org/

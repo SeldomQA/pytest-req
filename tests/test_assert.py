@@ -69,7 +69,7 @@ def test_assert_path_all_equal_success():
     expect(data2).to_have_path_all_equal("statuses", "active")
 
 
-def test_assert_schema():
+def test_to_match_schema():
     """
     assert JSON schema validation
     """
@@ -82,4 +82,4 @@ def test_assert_schema():
         },
         "required": ["name", "age"]
     }
-    expect(data).assert_schema(schema)
+    expect(data).to_match_schema(schema)
