@@ -1,3 +1,7 @@
+## 0.7.0
+
+* 增加断言方法 `to_match_schema()`。
+
 ## 0.6.0
 
 * 增加断言方法 `to_have_path_all_contains()`。
